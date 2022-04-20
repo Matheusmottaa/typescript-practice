@@ -61,6 +61,96 @@ const otherObj: {
 otherObj.age = 72;
 otherObj.weight = 200;
 
-for (const prop in otherObj) {
-  console.log(`${prop} = ${otherObj[prop]}`);
+// Type Array
+
+function sumArgs(...numbers: Array<number>): number {
+  return numbers.reduce((accumulated, current) => accumulated + current);
 }
+
+function namesToUpperCase(...names: string[]): string[] {
+  return names.map((name) => name.toUpperCase());
+}
+
+console.log(sumArgs(1, 2, 3, 5));
+console.log(
+  namesToUpperCase(
+    'nikola tesla',
+    'richard feyman',
+    'cristiano ronaldo',
+    'lionel messi',
+  ).join(', '),
+);
+
+/*
+Type Tuple is an array with specific types and a defined size.
+This type only exists in typescript
+*/
+
+const data: readonly [number, boolean, string, number?] = [10, true, 'Hi'];
+
+for (let i = 0; i < data.length; i++) {
+  console.log(data[i]);
+}
+
+/*
+  Types null and undefined
+*/
+
+let x: unknown = process.argv[2];
+
+typeof x === 'undefined' ? (x = 20) : (x = 'hello');
+
+console.log(x);
+
+function squareOf(x?: any): number | null {
+  if (typeof x !== 'number') {
+    return null;
+  }
+  return x ** 2;
+}
+
+console.log(squareOf(3));
+console.log(squareOf());
+
+/*
+  Type never => use to show an error with a function or something like that
+*/
+
+function makeError(): never {
+  throw new Error('There is an error ');
+}
+
+// makeError();
+
+/*
+  Enum is a data structure in typescript
+*/
+
+enum Colors {
+  red,
+  blue,
+  yellow,
+}
+
+console.log(Colors);
+console.log(Colors.red);
+console.log(Colors[1]);
+
+function choseAColor(color: Colors): void {
+  console.log(Colors[color]);
+}
+
+choseAColor(Colors.red);
+
+/*
+  Type unknown is like a type any but more safe
+*/
+
+let y: unknown;
+
+// eslint-disable-next-line prefer-const
+y = (): number => {
+  return 20;
+};
+
+console.log(y);
