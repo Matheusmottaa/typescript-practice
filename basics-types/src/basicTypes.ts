@@ -123,7 +123,7 @@ function makeError(): never {
 // makeError();
 
 /*
-  Enum is a data structure in typescript
+  Enum is a type of data structures
 */
 
 enum Colors {
@@ -154,3 +154,102 @@ y = (): number => {
 };
 
 console.log(y);
+
+/*
+
+  Union Types => |
+
+*/
+
+function addOrConcat(a: number | string, b: number | string): number | string {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a + b;
+  }
+  return `${a}${b}`;
+}
+console.log(addOrConcat(10, 20));
+console.log('John', 'Doe');
+
+/*
+  Literal types => uses values ​​as literal type
+*/
+
+let c = 10;
+c = 0b1010001;
+
+c = 'blabla';
+
+console.log(c);
+
+const v = 2;
+
+let test = 100 as const; //eslint-disable-line
+
+//test = 20 -> Error
+
+function choseColor(color: 'Red' | 'Green' | 'Blue'): string {
+  return color;
+}
+
+console.log(choseColor('Red'));
+console.log(choseColor('pink'));
+
+/*
+  Type Alias => create a name for a specific type
+*/
+
+type Age = number;
+
+type Person = {
+  name: string;
+  lastName: string;
+  city: string;
+  age: Age;
+  Weight?: number;
+};
+
+const person: Person = {
+  name: 'John',
+  lastName: 'Doe',
+  city: 'New York',
+  age: 36,
+  Weight: 300,
+};
+
+console.log(person);
+
+/*
+  Intersection Types => &
+*/
+
+type hasName = { name: string };
+type hasLastName = { lastName: string };
+type hasAge = { age: number };
+type PersonM = hasName & hasLastName & hasAge;
+
+const pessoa: PersonM = {
+  name: 'Fulano',
+  lastName: 'kn',
+  age: 25,
+};
+
+type AB = 'A' | 'B';
+type AC = 'A' | 'C';
+type Intersection = AB & AC;
+
+const result: Intersection = 'A';
+console.log(result);
+
+console.log(pessoa);
+
+/*
+  Functions like types
+*/
+
+function mapStrings(arr: string[], callbackfn: CallableFunction): string[] {
+  const newArr: string[] = [];
+  for (let i = 0; i < arr.length; i++) {
+    newArr.push(callbackfn(arr[i]));
+  }
+  return newArr;
+}
