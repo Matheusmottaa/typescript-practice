@@ -325,3 +325,5 @@ $body2.style.background = 'green';
 const $body3 = document.querySelector('body') as HTMLBodyElement;
 
 $body3.style.background = 'gray';
+
+const $input = document.querySelector('input') as unknown as number;
