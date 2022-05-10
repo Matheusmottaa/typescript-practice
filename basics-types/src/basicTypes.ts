@@ -170,14 +170,13 @@ function addOrConcat(a: number | string, b: number | string): number | string {
 console.log(addOrConcat(10, 20));
 console.log('John', 'Doe');
 
-/*
-  Literal types => uses values ​​as literal type
-*/
+// eslint-disable-next-line no-irregular-whitespace
+// Literal types => uses values ​literal type
 
 let c = 10;
 c = 0b1010001;
 
-c = 'blabla';
+//c = 'blabla';
 
 console.log(c);
 
@@ -192,7 +191,7 @@ function choseColor(color: 'Red' | 'Green' | 'Blue'): string {
 }
 
 console.log(choseColor('Red'));
-console.log(choseColor('pink'));
+//console.log(choseColor('pink'));
 
 /*
   Type Alias => create a name for a specific type
@@ -200,12 +199,18 @@ console.log(choseColor('pink'));
 
 type Age = number;
 
+type colorRGB = 'Red' | 'Green' | 'Blue';
+type colorCMYK = 'Ciano' | 'Magenta' | 'Yellow' | 'Black';
+
+type myColor = colorRGB | colorCMYK;
+
 type Person = {
   name: string;
   lastName: string;
   city: string;
   age: Age;
-  Weight?: number;
+  weight?: number;
+  color: myColor;
 };
 
 const person: Person = {
@@ -213,7 +218,8 @@ const person: Person = {
   lastName: 'Doe',
   city: 'New York',
   age: 36,
-  Weight: 300,
+  weight: 300,
+  color: 'Black',
 };
 
 console.log(person);
@@ -240,16 +246,63 @@ type Intersection = AB & AC;
 const result: Intersection = 'A';
 console.log(result);
 
-console.log(pessoa);
-
 /*
   Functions like types
 */
 
-function mapStrings(arr: string[], callbackfn: CallableFunction): string[] {
+const sayHi: (name: string) => void = (name) => {
+  console.log(`Hi ${name}`);
+};
+
+console.log(sayHi('John'));
+
+type MapStringsCallback = (item: string) => string;
+
+function mapStrings(arr: string[], callbackfn: MapStringsCallback): string[] {
   const newArr: string[] = [];
   for (let i = 0; i < arr.length; i++) {
-    newArr.push(callbackfn(arr[i]));
+    const item = arr[i];
+    newArr.push(callbackfn(item));
   }
   return newArr;
 }
+
+const abc = ['a', 'b', 'c'];
+
+const abcMapped = mapStrings(abc, (item: string) => {
+  return item.toUpperCase();
+});
+
+console.log(abcMapped);
+
+/*
+  Structural type
+*/
+
+type User = {
+  username: string;
+  password: string;
+};
+
+type VerifyUserFn = (user: User, sentValue: User) => boolean;
+
+const verifyUser: VerifyUserFn = (user, sentValue) => {
+  return (
+    user.username === sentValue.username && user.password === sentValue.password
+  );
+};
+const dbUser = {
+  username: 'John',
+  password: '1234',
+};
+
+const sentUser = {
+  username: 'John',
+  password: '1234',
+};
+
+console.log(verifyUser(dbUser, sentUser));
+
+sentUser.password = 'hala madrid';
+
+console.log(verifyUser(dbUser, sentUser));
