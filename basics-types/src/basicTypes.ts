@@ -301,11 +301,11 @@ const sentUser = {
   password: '1234',
 };
 
-console.log(verifyUser(dbUser, sentUser));
+console.log('As senhas sao iguais?', verifyUser(dbUser, sentUser));
 
 sentUser.password = 'hala madrid';
 
-console.log(verifyUser(dbUser, sentUser));
+console.log('As senhas sao iguais?', verifyUser(dbUser, sentUser));
 
 /*
   Type assertions
