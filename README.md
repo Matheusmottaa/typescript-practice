@@ -1,1 +1,3 @@
-# practicing typescript and reviewing some concepts
+# Typescript
+
+practicing typescript and reviewing some concepts
